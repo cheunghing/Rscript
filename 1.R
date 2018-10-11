@@ -1105,3 +1105,7 @@ for_6_merge$总金额<-for_6_merge$`80.y`+for_6_merge$`90.y`
 for_6_merge$成功率<-for_6_merge$`90.x`/for_6_merge$总数
 for_6_merge<-for_6_merge[,c(1,6,3,5,7,8,9)]
 names(for_6_merge)<- c('银行', '渠道','成功数', '成功金额', '总数','总金额','成功率')
+
+
+
+####三生三世
