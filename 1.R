@@ -1100,6 +1100,10 @@ for_6_sum <- dcast(for_6_sum, Group.1  ~ Group.2, value.var = "x")
 for_6_count <- dcast(for_6_count, Group.1  ~ Group.2, value.var = "x")
 for_6_merge<- merge(for_6_count,for_6_sum,by=c('Group.1'),all=T)
 for_6_merge$渠道<-'萨摩耶代收'
+for_6_merge[is.na(for_6_merge$`80.x`), ]$`80.x` <- 0
+for_6_merge[is.na(for_6_merge$`90.x`), ]$`90.x` <- 0
+for_6_merge[is.na(for_6_merge$`80.y`), ]$`80.y` <- 0
+for_6_merge[is.na(for_6_merge$`90.y`), ]$`90.y` <- 0
 for_6_merge$总数<-for_6_merge$`80.x`+for_6_merge$`90.x`
 for_6_merge$总金额<-for_6_merge$`80.y`+for_6_merge$`90.y`
 for_6_merge$成功率<-for_6_merge$`90.x`/for_6_merge$总数
@@ -1108,4 +1112,4 @@ names(for_6_merge)<- c('银行', '渠道','成功数', '成功金额', '总数',
 
 
 
-####三生三世
+
