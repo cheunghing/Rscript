@@ -4,8 +4,8 @@ library(plyr)
 library(jsonlite)
 library(reshape2)
 library(scales)
-mainpath<-"D:/Rworkplace"##存储路径
-date<-seq(from='20181004',to='20181010',by=1)
+mainpath<-"/Users/cheunghing/Rworkplace"  ##"D:/Rworkplace"##存储路径
+date<-seq(from='20181006',to='20181011',by=1)
 result<-data.frame()
 for (i in as.character(date)) {
   result <- rbind(result,read.csv(paste(mainpath,"/hist_data/",format(as.Date(i,format='%Y%m%d'),format='%Y%m%d'),"-",format(as.Date(i,format='%Y%m%d')+1,format='%Y%m%d'),"-1.csv",sep = '')
@@ -103,6 +103,6 @@ ggplot(data = res_2,aes(
   x = '日期',
   y = '比率',
   color = '指标'
-)+geom_text(data=res_2 ,aes(label = paste(100*round(res_2$value,4),'%')), vjust = 1.5, colour = "black", position = position_dodge(.9), size = 5)+ theme(text = element_text(family = 'STXihei', size = 16)) 
+)+geom_text(data=res_2 ,aes(label = paste(100*round(res_2$value,4),'%')), vjust = 1.5, colour = "black", position = position_dodge(.9), size = 5)+ theme(text = element_text(family = 'STXihei', size = 16))+ theme(text = element_text(family = 'STXihei')) 
 dev.off()
 

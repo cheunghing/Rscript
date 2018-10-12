@@ -5,12 +5,12 @@ library(plyr)
 library(jsonlite)
 library(reshape2)
 library(scales)
-mainpath<-"D:/Rworkplace"##存储路径
+mainpath<-"/Users/cheunghing/Rworkplace"##存储路径
 setwd(mainpath)
 trans_type <- '1'  ##1实时 4批量
-start_time <- '2018-10-12+00:00:00'
+start_time <- '2018-10-11+00:00:00'
 end_time <-
-  '2018-10-13+00:00:00'  ####format(Sys.time(), format = '%Y-%m-%d+%H:%M:%S')  #######
+  '2018-10-12+00:00:00'  ####format(Sys.time(), format = '%Y-%m-%d+%H:%M:%S')  #######
 loop_time <- NA
 start_num <- 0
 length <- 5000
@@ -25,7 +25,7 @@ handle <-
       Connection = 'keep-alive',
       # 'Content-Length' = '',
       'Content-Type' = 'application/x-www-form-urlencoded; charset=UTF-8',
-      Cookie = 'JSESSIONID=1521C0883A1B6E82A070976875B84A35; theme=theme_base; userName=%E6%9D%8E%E9%95%BF%E5%85%B4; token=98c3cc5b50c9f0359ce566792e22baf2; userId=s00580; userType=CBUSER',
+      Cookie = 'JSESSIONID=26C6609BE4E9FC2663A531C7F343F4E2; theme=theme_base; token=81f429f386895494d76313f7b0ddef12; userId=s00580; userType=CBUSER; userName=%E6%9D%8E%E9%95%BF%E5%85%B4',
       Referer = 'http://172.18.32.14:8080/pcs-oms-new/payment/transOrderInfo/list?token=3cf075a6f585a7e414a08e794d777509&userId=s00580&userType=CBUSER&userName=%E6%9D%8E%E9%95%BF%E5%85%B4',
       Host = '172.18.32.14:8080',
       'X-Requested-With' = 'XMLHttpRequest'
@@ -586,7 +586,7 @@ bb_name <-
 write.table(
   bb_name,
   file = paste(
-    mainpath,,"/table/",
+    mainpath,"/table/",
     gsub('-', '', substr(start_time, 1, 10)),
     "各银行交易情况.csv",
     sep = ''
@@ -1045,7 +1045,7 @@ ggplot(data = result) + geom_histogram(
   x = '时',
   y = '数量',
   fill = '结果'
-)
+)+theme(text = element_text(family = 'STXihei'))
 dev.off()
 
 cacu_fee <- function(df_t) {
