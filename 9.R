@@ -4,9 +4,10 @@ library(plyr)
 library(jsonlite)
 library(reshape2)
 library(scales)
-start_time <- '2018-10-09 00:00:00'
+mainpath<-"D:/Rworkplace"##存储路径
+start_time <- '2018-10-12 00:00:00'
 end_time <-
-  '2018-10-10 00:00:00'  ####format(Sys.time(), format = '%Y-%m-%d+%H:%M:%S')  #######
+  '2018-10-13 00:00:00'  ####format(Sys.time(), format = '%Y-%m-%d+%H:%M:%S')  #######
 loop_time <- NA
 start_num <- 0
 length <- 5000
@@ -317,7 +318,7 @@ result_merge <-
 write.table(
   result_merge,
   file = paste(
-    "D:/Rworkplace/table/",
+    mainpath,"/table/",
     gsub('-', '', substr(start_time, 1, 10)),
     "资金方VS萨摩耶占比.csv",
     sep = ''

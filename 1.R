@@ -5,12 +5,12 @@ library(plyr)
 library(jsonlite)
 library(reshape2)
 library(scales)
-setwd("D:/Rworkplace")
-
+mainpath<-"D:/Rworkplace"##存储路径
+setwd(mainpath)
 trans_type <- '1'  ##1实时 4批量
-start_time <- '2018-09-17+00:00:00'
+start_time <- '2018-10-12+00:00:00'
 end_time <-
-  '2018-09-18+00:00:00'  ####format(Sys.time(), format = '%Y-%m-%d+%H:%M:%S')  #######
+  '2018-10-13+00:00:00'  ####format(Sys.time(), format = '%Y-%m-%d+%H:%M:%S')  #######
 loop_time <- NA
 start_num <- 0
 length <- 5000
@@ -25,7 +25,7 @@ handle <-
       Connection = 'keep-alive',
       # 'Content-Length' = '',
       'Content-Type' = 'application/x-www-form-urlencoded; charset=UTF-8',
-      Cookie = 'JSESSIONID=E05006D464231D22C2132A453C683AC6; theme=theme_base; userName=%E6%9D%8E%E9%95%BF%E5%85%B4; token=98c3cc5b50c9f0359ce566792e22baf2; userId=s00580; userType=CBUSER',
+      Cookie = 'JSESSIONID=1521C0883A1B6E82A070976875B84A35; theme=theme_base; userName=%E6%9D%8E%E9%95%BF%E5%85%B4; token=98c3cc5b50c9f0359ce566792e22baf2; userId=s00580; userType=CBUSER',
       Referer = 'http://172.18.32.14:8080/pcs-oms-new/payment/transOrderInfo/list?token=3cf075a6f585a7e414a08e794d777509&userId=s00580&userType=CBUSER&userName=%E6%9D%8E%E9%95%BF%E5%85%B4',
       Host = '172.18.32.14:8080',
       'X-Requested-With' = 'XMLHttpRequest'
@@ -255,7 +255,7 @@ result_backup <- result###backup
 write.table(
   result,
   file = paste(
-    'D:/Rworkplace/hist_data/',
+    mainpath,'/hist_data/',
     gsub('-', '', substr(start_time, 1, 10)),
     '-',
     gsub('-', '', substr(end_time, 1, 10)),
@@ -542,7 +542,7 @@ sum(aa$succ) / (sum(aa$succ) + sum(aa$fail_abnor) + sum(aa$fail_nor))###总体�
 write.table(
   fail_detail,
   file = paste(
-    "D:/Rworkplace/table/",
+    mainpath,"/table/",
     gsub('-', '', substr(start_time, 1, 10)),
     "异常汇总.csv",
     sep = ''
@@ -586,7 +586,7 @@ bb_name <-
 write.table(
   bb_name,
   file = paste(
-    "D:/Rworkplace/table/",
+    mainpath,,"/table/",
     gsub('-', '', substr(start_time, 1, 10)),
     "各银行交易情况.csv",
     sep = ''
@@ -617,7 +617,7 @@ names(channel_partion) <- c('渠道', '成功笔数', '成功笔数占比', '成
 write.table(
   channel_partion,
   file = paste(
-    "D:/Rworkplace/table/",
+    mainpath,"/table/",
     gsub('-', '', substr(start_time, 1, 10)),
     "各渠道交易占比.csv",
     sep = ''
@@ -644,7 +644,7 @@ names(bank_partion) <- c('银行', '成功笔数', '成功笔数占比', '成功
 write.table(
   bank_partion,
   file = paste(
-    "D:/Rworkplace/table/",
+    mainpath,"/table/",
     gsub('-', '', substr(start_time, 1, 10)),
     "各银行交易占比.csv",
     sep = ''
@@ -668,7 +668,7 @@ names(done_time) <- c('交易耗时分布', '笔数', '占比')
 write.table(
   done_time,
   file = paste(
-    "D:/Rworkplace/table/",
+    mainpath,"/table/",
     gsub('-', '', substr(start_time, 1, 10)),
     "时间分布占比.csv",
     sep = ''
@@ -681,7 +681,7 @@ group_amt_agr <-
   aggregate(result$transSeqno, list(result$group_amt), length)
 #——————————————————详情表生成完毕————————————————#
 png(
-  filename = paste("D:/Rworkplace/pic/", gsub('-', '', substr(start_time, 1, 10)), "银行图.png", sep =
+  filename = paste(mainpath,"/pic/", gsub('-', '', substr(start_time, 1, 10)), "银行图.png", sep =
                      ''),
   ###生成银行图
   width = 1580 * 2,
@@ -770,7 +770,7 @@ dev.off()
 
 png(
   filename = paste(
-    "D:/Rworkplace/pic/",
+    mainpath,"/pic/",
     gsub('-', '', substr(start_time, 1, 10)),
     "渠道交易金额区间图.png",
     sep = ''
@@ -805,7 +805,7 @@ dev.off()
 
 png(
   filename = paste(
-    "D:/Rworkplace/pic/",
+    mainpath,"/pic/",
     gsub('-', '', substr(start_time, 1, 10)),
     "各银行渠道分布图.png",
     sep = ''
@@ -1014,7 +1014,7 @@ standard_no_reroute <-
 ####时间分布图
 png(
   filename = paste(
-    "D:/Rworkplace/pic/",
+    mainpath,"/pic/",
     gsub('-', '', substr(start_time, 1, 10)),
     "交易时间分布.png",
     sep = ''

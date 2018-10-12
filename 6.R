@@ -4,9 +4,10 @@ library(plyr)
 library(jsonlite)
 library(reshape2)
 library(scales)
-start_time <- '2018-10-10 00:00:00'
+mainpath<-"D:/Rworkplace"##存储路径
+start_time <- '2018-10-12 00:00:00'
 end_time <-
-  '2018-10-11 00:00:00'  ####format(Sys.time(), format = '%Y-%m-%d+%H:%M:%S')  #######
+  '2018-10-13 00:00:00'  ####format(Sys.time(), format = '%Y-%m-%d+%H:%M:%S')  #######
 loop_time <- NA
 start_num <- 0
 length <- 5000
@@ -21,7 +22,7 @@ handle <-
       Connection = 'keep-alive',
       # 'Content-Length' = '',
       'Content-Type' = 'application/x-www-form-urlencoded; charset=UTF-8',
-      Cookie = 'JSESSIONID=FA35E51AF401F22EB3C2FA0F90A321AE; userName=%E6%9D%8E%E9%95%BF%E5%85%B4; theme=theme_base; token=7668a032eb8c232b8fcdbdd55823616e; userId=s00580; userType=CBUSER',
+      Cookie = 'JSESSIONID=1521C0883A1B6E82A070976875B84A35; theme=theme_base; userName=%E6%9D%8E%E9%95%BF%E5%85%B4; token=98c3cc5b50c9f0359ce566792e22baf2; userId=s00580; userType=CBUSER',
       Referer = 'http://172.18.32.14:8080/ncc-oms/repayapply/repayApplyPage?token=a25b085949531e494c422dccc17638b6&userId=s00580&userType=CBUSER&userName=%E6%9D%8E%E9%95%BF%E5%85%B4',
       Host = '172.18.32.14:8080',
       'X-Requested-With' = 'XMLHttpRequest'
@@ -318,7 +319,7 @@ result <-
   subset(result, result$repayType %in% c('RT01'))#####再次筛选实时:RT01 or批扣::RT01
 result <-
   subset(result, !result$channelId %in% c('PCS'))#####再次筛选实时:RT01 or批扣::RT01
-result<-subset(result,result$status!='10')
+result<-subset(result,!result$status%in%c('00','10'))
 res_ag <-
   aggregate(result$idNo,
             list(result$bankName.y, result$channelId, result$status),
@@ -398,7 +399,7 @@ res_ag_total_short <-
 write.table(
   res_ag_total_short,
   file = paste(
-    "D:/Rworkplace/table/",
+    mainpath,"/table/",
     gsub('-', '', substr(start_time, 1, 10)),
     "总体代收.csv",
     sep = ''
@@ -411,7 +412,7 @@ bb_name_short <-
 
 png(
  filename = paste(
-  "D:/Rworkplace/pic/",
+   mainpath,"/pic/",
    gsub('-', '', substr(start_time, 1, 10)),
    "各资金方成功率图.png",
    sep = ''
